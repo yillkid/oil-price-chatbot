@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>油價小幫手｜GitHub Pages × 本機 OpenCode</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>⛽ 油價小幫手</h1>
+  <p class="sub">網頁放在 GitHub Pages；回答由<strong>你電腦上的 OpenCode</strong>（Big Pickle 免費模型）產生。</p>
+</header>
+
+<main>
+  <section id="setup" class="card">
+    <h2>① 先在你的電腦啟動 OpenCode</h2>
+    <pre id="cmd"></pre>
+    <form id="setupForm" class="row">
+      <input type="text" name="username" value="opencode" autocomplete="username" hidden>
+      <label>位址 <input id="url" value="http://127.0.0.1:4096"></label>
+      <label>密碼 <input id="pw" type="password" placeholder="上面指令裡的密碼" autocomplete="current-password"></label>
+      <button id="connect">連線</button>
+    </form>
+    <p class="hint">第一次連線時，Chrome／Edge 會問「是否允許這個網站存取區域網路上的裝置」，請按<strong>允許</strong>。</p>
+    <p id="status" class="status">尚未連線</p>
+  </section>
+
+  <section id="chat" class="card">
+    <h2>② 問油價</h2>
+    <div id="log"></div>
+    <div class="chips">
+      <button class="chip">今天 95 無鉛多少錢？</button>
+      <button class="chip">最近七週哪一週有調價？漲了多少？</button>
+      <button class="chip">加滿 40 公升 92 要多少錢？</button>
+    </div>
+    <form id="ask">
+      <input id="q" placeholder="輸入問題…" autocomplete="off" disabled>
+      <button id="send" disabled>送出</button>
+    </form>
+  </section>
+
+  <section class="card how">
+    <h2>這頁怎麼運作？</h2>
+    <ol>
+      <li>瀏覽器載入 GitHub Pages 上的這個靜態網頁，以及 <a href="data/oil_prices.csv">oil_prices.csv</a>（範例 2 由 OpenCode 產生、已與中油官網核對）。</li>
+      <li>你的問題連同 CSV 送到<strong>本機</strong>的 <code>opencode serve</code>；它是 Harness，負責呼叫模型。</li>
+      <li>這個對話設定成「所有工具都要先問」，網頁會一律拒絕，所以模型只能聊天，不能動你的電腦。</li>
+    </ol>
+  </section>
+</main>
+
+<footer>資料：台灣中油汽、柴油歷史價格（2026/10/21 擷取）· 回答由 AI 產生，實際價格以加油站公告為準</footer>
+<script src="app.js"></script>
+</body>
+</html>
